@@ -16,6 +16,7 @@ function onReady(){
     newLi.textContent = title;
     //attach the checkbox to the li
     newLi.appendChild(checkbox);
+    //hopefully delete items using checkbox
     //attach the li to the ul
     toDoList.appendChild(newLi);
     //empty the input
