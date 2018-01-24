@@ -39,10 +39,9 @@ function onReady(){
       newLi.checkbox.addEventListener('change',function(){
         if(this.checked){
           deleteToDo();
-        }else{
-          continue;
-        }renderTheUI();
-      }; 
+        }
+        renderTheUI();
+      };
       function deleteToDo(id){
         toDos = toDos.filter(item => item.id !== id);
       }
