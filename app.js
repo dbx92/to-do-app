@@ -42,11 +42,7 @@ function onReady(){
         }else{
           continue;
         }renderTheUI();
-      }; //holy fuck, cant believe this worked
-      //...gotta be something wrong with it, definitely not what they asked for
-      //can only delete one checked box at a time??
-      //calling renderTheUI() from inside the renderTheUI()
-      // ....inception...
+      }; 
       function deleteToDo(id){
         toDos = toDos.filter(item => item.id !== id);
       }
