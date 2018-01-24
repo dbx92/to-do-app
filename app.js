@@ -1,41 +1,64 @@
 function onReady(){
+  let toDos = [];
+  let id = 0; //is this being called 2 times in line 12
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
-  const deleteButton = document.getElementById('delete');
-  addToDoForm.addEventListener('submit',() => {
-    event.preventDefault();
-    //get the text
-    let title = newToDoText.value;
-    //create new li
-    let newLi = document.createElement('li');
-    //create a new input
-    let checkbox = document.createElement('input');
+  function createNewToDo(){
+    if (!newToDoText.value){return;}
+    toDos.push({
+      title:newToDoText.value,
+      complete:false,
+      id:id.value;
 
-    //set the inputs type to a checkbox
-    checkbox.type = "checkbox";
-    checkbox.className = "checkbox";
-    //set the title of the li
-    newLi.textContent = title;
-    //attach the checkbox to the li
-    newLi.appendChild(checkbox);
-    //attach the li to the ul
-    toDoList.appendChild(newLi);
-    //empty the input
+    }
+
+  );
+    id = id + 1;
+    renderTheUI();
+  }
+
+  function renderTheUI(){
+
+
+    const toDoList = document.getElementById('toDoList');
+
+    toDos.forEach(function(toDo) {
+      const newLi = document.createElement('li');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+
+      newLi.textContent = toDo.title;
+
+      toDoList.appendChild(newLi);
+      newLi.appendChild(checkbox);
+
+
+      });
+      newLi.checkbox.addEventListener('change',function(){
+        if(this.checked){
+          deleteToDo();
+        }else{
+          continue;
+        }renderTheUI();
+      }; //holy fuck, cant believe this worked
+      //...gotta be something wrong with it, definitely not what they asked for
+      //can only delete one checked box at a time??
+      //calling renderTheUI() from inside the renderTheUI()
+      // ....inception...
+      function deleteToDo(id){
+        toDos = toDos.filter(item => item.id !== id);
+      }
+  }
+  addToDoForm.addEventListener('submit', event => {
+    event.preventDefault();
+    createNewToDo();
     newToDoText.value = '';
   });
 
-  deleteButton.addEventListener('click',function(event){
-    event.preventDefault();
-    let checkboxes = document.getElementsByClassName('checkbox');
-    for(let i=0;i<=checkboxes.length;i++){
-      let checkbox = checkboxes[i];
-      if(checkbox.checked){
-        let parent = checkbox.parentElement;
-        toDoList.removeChild(parent);
-      }
-    }
-  })
+
+  renderTheUI();
 }
 window.onload = function(){
   onReady();
